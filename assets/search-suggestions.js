@@ -4,7 +4,7 @@
     String(value || '')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .toLocaleLowerCase('pt-BR')
+      .toLocaleLowerCase('en')
       .trim();
   const tokens = (value) => normalize(value).split(/\s+/).filter(Boolean);
   const fits = (name, query) => tokens(query).every((word) => normalize(name).includes(word));
@@ -74,7 +74,7 @@
       .sort(
         (a, b) =>
           a.score - b.score ||
-          a.item.name.localeCompare(b.item.name, 'pt-BR', {
+          a.item.name.localeCompare(b.item.name, 'en', {
             sensitivity: 'base',
             numeric: true,
           }) ||
@@ -120,9 +120,7 @@
       'pagination:itemsPerPage': '160',
     });
     const responses = await Promise.allSettled(
-      ['pt', 'en'].map((lang) =>
-        json('https://api.tcgdex.net/v2/' + lang + '/cards?' + params, signal),
-      ),
+      ['en'].map((lang) => json('https://api.tcgdex.net/v2/' + lang + '/cards?' + params, signal)),
     );
     return responses
       .flatMap((result) =>
@@ -159,7 +157,7 @@
     try {
       const terms = tokens(query).map((word) => 'name:"' + word.replace(/["\\]/g, '') + '"');
       const params = new URLSearchParams({
-        q: terms.join(' ') + ' (lang:en or lang:pt)',
+        q: terms.join(' ') + ' lang:en',
         unique: 'prints',
         include_multilingual: 'true',
         order: 'name',

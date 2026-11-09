@@ -4,7 +4,7 @@
     String(value || '')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .toLocaleLowerCase('pt-BR')
+      .toLocaleLowerCase('en')
       .trim()
       .replace(/\s+/g, ' ');
   const price = (card) =>
@@ -39,7 +39,7 @@
           right = price(b);
         if (left !== right) return left < right ? -1 : 1;
         return (
-          String(a.set || '').localeCompare(String(b.set || ''), 'pt-BR', {
+          String(a.set || '').localeCompare(String(b.set || ''), 'en', {
             numeric: true,
           }) || String(a.id).localeCompare(String(b.id))
         );

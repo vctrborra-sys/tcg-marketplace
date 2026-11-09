@@ -477,21 +477,21 @@ test('vitrine normaliza categorias por jogo e mantém cartas antigas compatívei
   assert.doesNotMatch(inventory, /Foil|Full Art/);
   assert.deepEqual(
     Array.from(inventory.matchAll(/>([^<]+)<\/span>/g), (match) => match[1]),
-    ['2 Unidades', 'NM', 'English'],
+    ['2 Units', 'NM', 'English'],
   );
   assert.match(
     context.inventory({
       quantity: 1,
       condition: 'NM',
     }),
-    /1 Unidade<\/span><span class="inventory-pill">NM/,
+    /1 Unit<\/span><span class="inventory-pill">NM/,
   );
   assert.match(
     context.inventory({
       quantity: 0,
       condition: 'NM',
     }),
-    /class="inventory-pill out">Esgotada/,
+    /class="inventory-pill out">Sold out/,
   );
 });
 
@@ -899,17 +899,10 @@ test('respostas de buscas antigas não substituem as sugestões da busca atual',
   input.value = 'char';
   await input.emit('input');
   runDebounce();
-  pending[2].resolve(
+  pending[1].resolve(
     response([
       {
         name: 'Charizard',
-      },
-    ]),
-  );
-  pending[3].resolve(
-    response([
-      {
-        name: 'Charizard ex',
       },
     ]),
   );
@@ -919,13 +912,6 @@ test('respostas de buscas antigas não substituem as sugestões da busca atual',
     response([
       {
         name: 'Pikachu',
-      },
-    ]),
-  );
-  pending[1].resolve(
-    response([
-      {
-        name: 'Pikachu ex',
       },
     ]),
   );
@@ -1210,12 +1196,12 @@ test('valor da coleção soma preço por estoque, inclui cartas ocultas e não d
   p.run(
     `cards=[{name:'A',price:12.35,quantity:2},{name:'B',price:0.1,quantity:3,published:false},{name:'Vendida',price:100,quantity:0},{name:'Sem preço',price:null,quantity:2}];renderCards()`,
   );
-  assert.match(p.get('collection-total').textContent, /25,00/);
+  assert.match(p.get('collection-total').textContent, /\$25\.00/);
   p.get('filter-name').value = 'Nenhuma';
   p.run('renderCards()');
-  assert.match(p.get('collection-total').textContent, /25,00/);
+  assert.match(p.get('collection-total').textContent, /\$25\.00/);
   p.run('cards=[];renderCards()');
-  assert.match(p.get('collection-total').textContent, /0,00/);
+  assert.match(p.get('collection-total').textContent, /\$0\.00/);
 });
 
 test('busca administrativa encontra descrição sem acentos e preserva nome, edição e jogo', () => {
@@ -1526,19 +1512,16 @@ test('modal mostra preço separado dos metadados e preserva zero, consulta e gru
     store: {
       money: (value) =>
         typeof value === 'number'
-          ? value.toLocaleString('pt-BR', {
+          ? value.toLocaleString('en-US', {
               style: 'currency',
-              currency: 'BRL',
+              currency: 'USD',
             })
-          : 'Sob consulta',
+          : 'On request',
     },
   });
   const source = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   vm.runInContext(
-    source.slice(
-      source.indexOf('function openCard('),
-      source.indexOf('function closeCard('),
-    ),
+    source.slice(source.indexOf('function openCard('), source.indexOf('function closeCard(')),
     context,
   );
   const card = {
@@ -1552,28 +1535,28 @@ test('modal mostra preço separado dos metadados e preserva zero, consulta e gru
   };
   const open = (row) => vm.runInContext('openCard(' + JSON.stringify(row) + ')', context);
   open(card);
-  assert.match(get('modalPrice').textContent, /R\$\s*4,00/);
-  assert.doesNotMatch(get('modalMeta').textContent, /R\$/);
-  assert.match(get('modalMeta').textContent, /Estoque: 1/);
+  assert.match(get('modalPrice').textContent, /\$4\.00/);
+  assert.doesNotMatch(get('modalMeta').textContent, /\$/);
+  assert.match(get('modalMeta').textContent, /Stock: 1/);
   assert.match(get('modalContact').href, /wa\.me\/5500000000000\?text=/);
   open({
     ...card,
     price: 0,
   });
-  assert.match(get('modalPrice').textContent, /R\$\s*0,00/);
+  assert.match(get('modalPrice').textContent, /\$0\.00/);
   open({
     ...card,
     price: null,
   });
-  assert.equal(get('modalPrice').textContent, 'Sob consulta');
+  assert.equal(get('modalPrice').textContent, 'On request');
   open({
     ...card,
     variants: [card],
   });
-  assert.match(get('modalPrice').textContent, /Apartir de: R\$\s*4,00/);
+  assert.match(get('modalPrice').textContent, /From: \$4\.00/);
   open({
     ...card,
     demo: true,
   });
-  assert.equal(get('modalPrice').textContent, 'Sob consulta');
+  assert.equal(get('modalPrice').textContent, 'On request');
 });

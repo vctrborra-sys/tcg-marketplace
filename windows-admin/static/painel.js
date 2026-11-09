@@ -47,9 +47,9 @@ const categoriesByGame = {
 
 const money = (n) =>
   typeof n === 'number' && Number.isFinite(n)
-    ? n.toLocaleString('pt-BR', {
+    ? n.toLocaleString('en-US', {
         style: 'currency',
-        currency: 'BRL',
+        currency: 'USD',
       })
     : 'Sob consulta';
 

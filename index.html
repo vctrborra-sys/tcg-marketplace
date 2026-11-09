@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="TCG Marketplace: compra e venda de cartas Pokémon e Magic: The Gathering, acessórios TCG, venda por comissão e avaliação de coleções."
+      content="TCG Marketplace: buy and sell Pokémon and Magic: The Gathering cards, TCG accessories, consignment sales and collection appraisals."
     />
     <meta property="og:title" content="TCG Marketplace | Magic & Pokémon" />
     <meta
       property="og:description"
-      content="Seu próximo turno começa aqui. Compra e venda de cartas TCG, acessórios, venda por comissão e avaliação de coleções."
+      content="Your next turn starts here. Buy and sell TCG cards, accessories, consignment sales and collection appraisals."
     />
     <meta property="og:image" content="assets/banner.jpg" />
     <title>TCG Marketplace | Magic & Pokémon</title>
@@ -505,8 +505,7 @@
       }
       .price-range {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: end;
+        grid-template-columns: 1fr;
         gap: 10px;
       }
       .price-range .price-separator {
@@ -1061,10 +1060,10 @@
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="brand" href="#inicio" aria-label="TCG Marketplace — início">
+        <a class="brand" href="#inicio" aria-label="TCG Marketplace — home">
           <span class="brand-text"
             ><span class="brand-title">TCG <span>Marketplace</span></span
-            ><span class="brand-sub">Cartas & colecionáveis</span></span
+            ><span class="brand-sub">Cards & collectibles</span></span
           >
         </a>
         <div class="search-field header-search">
@@ -1072,8 +1071,8 @@
             class="search"
             id="search"
             type="search"
-            placeholder="Buscar uma carta pelo nome..."
-            aria-label="Buscar cartas"
+            placeholder="Search for a card by name..."
+            aria-label="Search cards"
             autocomplete="off"
             maxlength="90"
           />
@@ -1081,7 +1080,7 @@
             id="searchSuggestions"
             class="search-suggestions"
             role="group"
-            aria-label="Sugestões de cartas"
+            aria-label="Card suggestions"
             hidden
           ></div>
         </div>
@@ -1092,8 +1091,8 @@
         <div class="container">
           <div class="hero-grid">
             <div class="hero-copy">
-              <h1><span>Seu próximo turno</span> <em>começa aqui.</em></h1>
-              <p>Cartas, coleções e universos que movem a sua paixão pelo TCG.</p>
+              <h1><span>Your next turn</span> <em>starts here.</em></h1>
+              <p>Cards, collections and worlds that fuel your passion for TCG.</p>
               <div class="hero-actions" id="contato">
                 <a
                   class="btn btn-gold"
@@ -1115,7 +1114,7 @@
                     <path
                       d="m8.2 7.4 1.5 2.5-1 1.1a8.2 8.2 0 0 0 4.2 4.2l1.1-1 2.5 1.5c-.3 1.4-1.3 2-2.5 1.7-3.7-.9-6.9-4.1-7.8-7.8-.3-1.2.3-2.2 2-2.2Z"
                     /></svg
-                  >Falar no WhatsApp</a
+                  >Chat on WhatsApp</a
                 >
               </div>
             </div>
@@ -1126,7 +1125,7 @@
                 src="assets/banner.webp"
                 width="1600"
                 height="900"
-                alt="Espaço reservado para o banner da loja"
+                alt="Placeholder for the store banner"
                 fetchpriority="high"
                 decoding="async"
               />
@@ -1134,10 +1133,10 @@
                 class="hero-placeholder"
                 id="heroPlaceholder"
                 hidden
-                aria-label="Identidade visual TCG Marketplace"
+                aria-label="TCG Marketplace visual identity"
               >
                 <span class="hero-symbol" aria-hidden="true">T</span><strong>TCG MARKETPLACE</strong
-                ><small>Magic · Pokémon · Colecionáveis</small>
+                ><small>Magic · Pokémon · Collectibles</small>
               </div>
             </div>
           </div>
@@ -1145,7 +1144,7 @@
       </section>
       <section class="section container" id="catalogo">
         <div class="section-top">
-          <div><h2>Explore as Cartas</h2></div>
+          <div><h2>Explore the Cards</h2></div>
         </div>
         <div
           class="catalog-source"
@@ -1154,59 +1153,59 @@
           aria-live="polite"
           hidden
         ></div>
-        <div class="collections" aria-label="Filtrar por universo">
+        <div class="collections" aria-label="Filter by game">
           <button class="collection-tile" type="button" data-select-game="Magic">
             <span
               ><strong>Magic: The Gathering</strong
-              ><small>Magia, estratégia e cartas lendárias</small></span
+              ><small>Magic, strategy and legendary cards</small></span
             ><span class="tile-icon" aria-hidden="true">✦</span>
           </button>
           <button class="collection-tile" type="button" data-select-game="Pokémon">
             <span
-              ><strong>Pokemon TCG</strong
-              ><small>Descobertas, nostalgia e criaturas incríveis</small></span
+              ><strong>Pokémon TCG</strong
+              ><small>Discovery, nostalgia and amazing creatures</small></span
             ><span class="tile-icon" aria-hidden="true">✦</span>
           </button>
           <button class="collection-tile" type="button" data-select-game="all">
-            <span><strong>Todos</strong><small>Todas as cartas da vitrine</small></span
+            <span><strong>All</strong><small>Every card in the store</small></span
             ><span class="tile-icon" aria-hidden="true">✦</span>
           </button>
         </div>
         <div class="catalog-layout">
-          <aside class="filters" aria-label="Filtros do catálogo">
-            <p class="filter-title">Filtros</p>
+          <aside class="filters" aria-label="Catalog filters">
+            <p class="filter-title">Filters</p>
             <label class="sort-field" for="sortBy"
-              ><span>Ordenar por</span>
-              <select id="sortBy" aria-label="Ordenar cartas">
-                <option value="default">Ordem do catálogo</option>
-                <option value="nameAsc">Nome: A–Z</option>
-                <option value="nameDesc">Nome: Z–A</option>
-                <option value="priceAsc">Preço Menor [0-9]</option>
-                <option value="priceDesc" selected>Preço: Maior [9-0]</option>
+              ><span>Sort by</span>
+              <select id="sortBy" aria-label="Sort cards">
+                <option value="default">Catalog order</option>
+                <option value="nameAsc">Name: A–Z</option>
+                <option value="nameDesc">Name: Z–A</option>
+                <option value="priceAsc">Price: Low to High</option>
+                <option value="priceDesc" selected>Price: High to Low</option>
               </select>
             </label>
-            <div class="price-range" role="group" aria-label="Filtrar por faixa de preço">
-              <span class="price-group-label" aria-hidden="true">Faixa de preço</span>
+            <div class="price-range" role="group" aria-label="Filter by price range">
+              <span class="price-group-label" aria-hidden="true">Price range</span>
               <label for="minPrice"
-                ><span>Mínimo (R$)</span
+                ><span>Min (US$)</span
                 ><input
                   type="number"
                   id="minPrice"
                   min="0"
                   step="0.01"
                   inputmode="decimal"
-                  placeholder="0,00"
+                  placeholder="0.00"
               /></label>
-              <span class="price-separator" aria-hidden="true">até</span>
+              <span class="price-separator" aria-hidden="true">to</span>
               <label for="maxPrice"
-                ><span>Máximo (R$)</span
+                ><span>Max (US$)</span
                 ><input
                   type="number"
                   id="maxPrice"
                   min="0"
                   step="0.01"
                   inputmode="decimal"
-                  placeholder="Sem limite"
+                  placeholder="No limit"
               /></label>
             </div>
           </aside>
@@ -1214,7 +1213,7 @@
             <div class="grid" id="grid" aria-live="polite"></div>
             <div class="pagination-wrap">
               <div class="pagination-info" id="paginationInfo"></div>
-              <div class="pagination" id="pagination" aria-label="Paginação do catálogo"></div>
+              <div class="pagination" id="pagination" aria-label="Catalog pagination"></div>
             </div>
           </div>
         </div>
@@ -1223,11 +1222,11 @@
     <footer class="footer">
       <div class="container footer-inner">
         <span
-          >© <span id="year"></span> <strong>TCG Marketplace</strong>. Um projeto independente de
-          colecionáveis.</span
+          >© <span id="year"></span> <strong>TCG Marketplace</strong>. An independent collectibles
+          project.</span
         ><span
-          >Magic e Pokémon pertencem a seus respectivos titulares. Catálogo ilustrativo, sem
-          afiliação oficial. Arte de Magic: Scryfall, quando aplicável.</span
+          >Magic and Pokémon are trademarks of their respective owners. Sample catalog, not
+          officially affiliated. Magic art: Scryfall, where applicable.</span
         >
       </div>
     </footer>
@@ -1240,7 +1239,7 @@
       aria-hidden="true"
     >
       <div class="modal" role="document">
-        <button class="close" id="close" aria-label="Fechar detalhes">✕</button>
+        <button class="close" id="close" aria-label="Close details">✕</button>
         <img id="modalImage" alt="" />
         <div class="modal-details">
           <div class="eyebrow" id="modalGame"></div>
@@ -1257,7 +1256,7 @@
               href="https://wa.me/5500000000000"
               target="_blank"
               rel="noopener noreferrer"
-              >Consultar carta <span aria-hidden="true">↗</span></a
+              >Ask about this card <span aria-hidden="true">↗</span></a
             >
           </div>
         </div>
@@ -1289,7 +1288,7 @@
         const publishedCatalogLoaded = await publishedCatalogReady;
         const WHATSAPP_NUMBER = '5500000000000';
         const HERO_WHATSAPP_MESSAGE =
-          'Olá, tudo bem? Vim pelo site TCG Marketplace e gostaria de saber mais sobre o site.';
+          'Hi! I found TCG Marketplace online and would like to know more about the store.';
         const heroWhatsappUrl =
           'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(HERO_WHATSAPP_MESSAGE);
         const heroWhatsapp = document.querySelector('.hero-actions [data-whatsapp]');
@@ -1302,12 +1301,12 @@
           catalogSource.hidden = false;
           catalogSource.classList.add('preview');
           catalogSource.textContent =
-            'PRÉVIA LOCAL — estas alterações podem ainda não estar publicadas. Use “Exportar para o site” no painel para atualizar os visitantes.';
+            'LOCAL PREVIEW — these changes may not be published yet. Publish the catalog from the admin panel to update visitors.';
         } else if (!publishedCatalogLoaded) {
           catalogSource.hidden = false;
           catalogSource.classList.add('problem');
           catalogSource.textContent =
-            'Não foi possível carregar assets/catalogo.js. Verifique se o arquivo existe no mesmo site e na pasta correta.';
+            'Could not load assets/catalogo.js. Make sure the file exists on this site in the right folder.';
         }
         const placeholder =
           'data:image/svg+xml;charset=utf-8,' +
@@ -1336,8 +1335,8 @@
           return store.url(c.image) || cachedImages.get(c.scryfall) || placeholder;
         }
         function inventory(c) {
-          if (c.demo) return '<span class="inventory-pill demo">Carta ilustrativa</span>';
-          return `<span class="inventory-pill ${c.quantity === 0 ? 'out' : ''}">${c.quantity ? c.quantity + ' ' + (c.quantity === 1 ? 'Unidade' : 'Unidades') : 'Esgotada'}</span><span class="inventory-pill">${e(c.condition || 'Conservação sob consulta')}</span>${c.language ? `<span class="inventory-pill">${e(c.language)}</span>` : ''}`;
+          if (c.demo) return '<span class="inventory-pill demo">Sample card</span>';
+          return `<span class="inventory-pill ${c.quantity === 0 ? 'out' : ''}">${c.quantity ? c.quantity + ' ' + (c.quantity === 1 ? 'Unit' : 'Units') : 'Sold out'}</span><span class="inventory-pill">${e(c.condition || 'Condition on request')}</span>${c.language ? `<span class="inventory-pill">${e(c.language)}</span>` : ''}`;
         }
         function updateFilterHighlights() {
           document.querySelectorAll('[data-select-game]').forEach((button) => {
@@ -1366,7 +1365,7 @@
           const image =
             '<img src="' +
             e(imageFor(card)) +
-            '" alt="Carta ' +
+            '" alt="Card ' +
             e(card.name) +
             '" loading="lazy" decoding="async">';
           const badge = playPokemonBadge(card);
@@ -1393,7 +1392,7 @@
             );
           });
           const compareNames = (a, b) =>
-            String(a.name || '').localeCompare(String(b.name || ''), 'pt-BR', {
+            String(a.name || '').localeCompare(String(b.name || ''), 'en', {
               sensitivity: 'base',
               numeric: true,
             });
@@ -1418,14 +1417,14 @@
                 .map(
                   (c) =>
                     `<article class="card" data-game="${e(c.game)}"><div class="artwrap" data-id="${e(c.id)}">${c.categories?.length ? '<span class="tag">' + e(c.categories.join(' / ')) + '</span>' : ''}${cardArtwork(c)}</div>` +
-                    `<div class="info"><div class="game">${c.game === 'Magic' ? 'Magic: The Gathering' : 'Pokémon TCG'}</div><h3>${e(c.name)}</h3><div class="sub">${c.variants ? c.editionCount + ' edições' : e(c.set)}</div>` +
-                    `<div class="inventory-meta">${inventory(c)}</div><div class="cardbottom"><span class="price">${c.variants ? 'Apartir de:' : c.demo ? 'Preço demonstrativo' : 'Preço'}<strong>${c.demo ? 'Sob consulta' : store.money(c.price)}</strong></span>` +
-                    `${c.variants ? '<button class="editions-button" type="button" data-id="' + e(c.id) + '">Ver edições (' + c.editionCount + ')</button>' : ''}</div></div></article>`,
+                    `<div class="info"><div class="game">${c.game === 'Magic' ? 'Magic: The Gathering' : 'Pokémon TCG'}</div><h3>${e(c.name)}</h3><div class="sub">${c.variants ? c.editionCount + ' editions' : e(c.set)}</div>` +
+                    `<div class="inventory-meta">${inventory(c)}</div><div class="cardbottom"><span class="price">${c.variants ? 'From:' : c.demo ? 'Sample price' : 'Price'}<strong>${c.demo ? 'On request' : store.money(c.price)}</strong></span>` +
+                    `${c.variants ? '<button class="editions-button" type="button" data-id="' + e(c.id) + '">View editions (' + c.editionCount + ')</button>' : ''}</div></div></article>`,
                 )
                 .join('')
             : search.value.trim()
-              ? '<div class="empty">Carta não disponivel</div>'
-              : '<div class="empty">Nenhuma carta encontrada. Experimente outro nome ou filtro.</div>';
+              ? '<div class="empty">Card not available</div>'
+              : '<div class="empty">No cards found. Try another name or filter.</div>';
           grid.querySelectorAll('.artwrap > img, .card-image-wrap > img').forEach((img) =>
             img.addEventListener(
               'error',
@@ -1438,9 +1437,9 @@
             ),
           );
           if (match.length) {
-            paginationInfo.textContent = `Mostrando ${start + 1}–${Math.min(end, match.length)} de ${match.length} cartas`;
+            paginationInfo.textContent = `Showing ${start + 1}–${Math.min(end, match.length)} of ${match.length} cards`;
           } else {
-            paginationInfo.textContent = 'Nenhum resultado encontrado';
+            paginationInfo.textContent = 'No results found';
           }
           if (totalPages <= 1) {
             pagination.replaceChildren();
@@ -1449,7 +1448,7 @@
             pagination.hidden = false;
             const pages = [];
             pages.push(
-              `<button type="button" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Página anterior">← Anterior</button>`,
+              `<button type="button" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous page">← Previous</button>`,
             );
             let lastPage = 0;
             for (let page = 1; page <= totalPages; page++) {
@@ -1457,12 +1456,12 @@
               if (lastPage && page > lastPage + 1)
                 pages.push('<span class="pagination-ellipsis" aria-hidden="true">…</span>');
               pages.push(
-                `<button type="button" data-page="${page}" class="${page === currentPage ? 'active' : ''}" ${page === currentPage ? 'aria-current="page"' : ''} aria-label="Página ${page}">${page}</button>`,
+                `<button type="button" data-page="${page}" class="${page === currentPage ? 'active' : ''}" ${page === currentPage ? 'aria-current="page"' : ''} aria-label="Page ${page}">${page}</button>`,
               );
               lastPage = page;
             }
             pages.push(
-              `<button type="button" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Próxima página">Próxima →</button>`,
+              `<button type="button" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next page">Next →</button>`,
             );
             pagination.innerHTML = pages.join('');
           }
@@ -1471,7 +1470,7 @@
           if (!card) return;
           priorFocus = document.activeElement;
           document.getElementById('modalImage').src = imageFor(card);
-          document.getElementById('modalImage').alt = 'Carta ' + card.name;
+          document.getElementById('modalImage').alt = 'Card ' + card.name;
           document.getElementById('modalGame').textContent =
             card.game === 'Magic' ? 'Magic: The Gathering' : 'Pokémon TCG';
           document.getElementById('modalName').textContent = card.name;
@@ -1481,22 +1480,32 @@
           document.getElementById('modalMeta').textContent =
             card.set +
             ' · ' +
-            card.rarity +
+            ({
+              Comum: 'Common',
+              Incomum: 'Uncommon',
+              Rara: 'Rare',
+              'Rara Dupla': 'Double Rare',
+              'Ultra Rara': 'Ultra Rare',
+              'Ilustração Rara': 'Illustration Rare',
+              'Ilustração Rara Especial': 'Special Illustration Rare',
+              'Rara Hiper': 'Hyper Rare',
+              Mítica: 'Mythic',
+            }[card.rarity] || card.rarity) +
             (card.categories?.length ? ' · ' + card.categories.join(' · ') : '') +
-            (card.playPokemon ? ' · Play Pokemon · Nº ' + card.playPokemonNumber : '') +
-            (card.language ? ' · Idioma: ' + card.language : '') +
+            (card.playPokemon ? ' · Play Pokémon · No. ' + card.playPokemonNumber : '') +
+            (card.language ? ' · Language: ' + card.language : '') +
             (card.demo
-              ? ' · Exemplo ilustrativo'
-              : ' · Estado: ' +
-                (card.condition || 'sob consulta') +
+              ? ' · Sample listing'
+              : ' · Condition: ' +
+                (card.condition || 'on request') +
                 ' · ' +
-                (card.quantity ? 'Estoque: ' + card.quantity : 'Esgotada'));
+                (card.quantity ? 'Stock: ' + card.quantity : 'Sold out'));
           document.getElementById('modalPrice').textContent =
-            (card.variants ? 'Apartir de: ' : '') + store.money(card.demo ? null : card.price);
+            (card.variants ? 'From: ' : '') + store.money(card.demo ? null : card.price);
           const editions = document.getElementById('modalEditions');
           editions.hidden = !card.variants;
           editions.innerHTML = card.variants
-            ? '<table><caption>Todas as edições</caption><thead><tr><th>Edição</th><th>Preço</th><th>Quantidade</th></tr></thead><tbody>' +
+            ? '<table><caption>All editions</caption><thead><tr><th>Edition</th><th>Price</th><th>Quantity</th></tr></thead><tbody>' +
               card.variants
                 .map(
                   (variant) =>
@@ -1506,7 +1515,7 @@
                     e(variant.name) +
                     '" loading="lazy" decoding="async">' +
                     playPokemonBadge(variant) +
-                    e(variant.set || 'Edição não informada') +
+                    e(variant.set || 'Edition not specified') +
                     '</td><td>' +
                     store.money(variant.price) +
                     '</td><td>' +
@@ -1516,8 +1525,8 @@
                 .join('') +
               '</tbody></table>'
             : '';
-          const condition = card.condition || 'sob consulta';
-          const cardMessage = `Olá, tudo bem? Vim pelo site TCG Marketplace e gostaria de saber mais sobre a carta ${card.name}, edição ${card.set}, condição ${condition}.`;
+          const condition = card.condition || 'on request';
+          const cardMessage = `Hi! I found TCG Marketplace online and would like to know more about ${card.name}, edition ${card.set}, condition ${condition}.`;
           document.getElementById('modalContact').href =
             'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(cardMessage);
           overlay.classList.add('open');

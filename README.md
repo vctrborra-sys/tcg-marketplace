@@ -5,7 +5,7 @@ Modelo pronto de vitrine para lojas de cartas **Magic: The Gathering** e **Poké
 - **Vitrine pública** (`index.html` + `assets/`): site estático para GitHub Pages, com busca por nome com sugestões (TCGdex e Scryfall), filtro por jogo, faixa de preço, ordenação, paginação, agrupamento de edições e contato pelo WhatsApp.
 - **Painel Windows** (`windows-admin/`): Flask + SQLite + Waitress em `http://127.0.0.1:8765/`, com login, cadastro de cartas pela TCGdex/Scryfall, estoque, vendas, clientes com comissão, histórico de alterações e publicação automática do catálogo no GitHub.
 
-O catálogo incluído (`assets/catalogo.js`) é **fictício**: 24 cartas populares de Magic e Pokémon, com preços definidos pela posição no catálogo (R$ 480 na 1ª posição, R$ 20 a menos em cada posição seguinte).
+A vitrine está em **inglês** e os preços em **dólar (US$)**. O catálogo incluído (`assets/catalogo.js`) é **fictício**: 24 cartas populares de Magic e Pokémon, com preços definidos pela posição no catálogo (R$ 480 na 1ª posição e R$ 20 a menos em cada posição seguinte, convertidos para dólar pela cotação de 09/11/2026, US$ 1 = R$ 5,5046: de US$ 87,20 a US$ 3,63). O painel administrativo continua em português e também exibe os valores em US$.
 
 ## Como montar a sua vitrine
 

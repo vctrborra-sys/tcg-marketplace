@@ -190,11 +190,11 @@
   }
   function money(value) {
     return typeof value === 'number' && Number.isFinite(value)
-      ? value.toLocaleString('pt-BR', {
+      ? value.toLocaleString('en-US', {
           style: 'currency',
-          currency: 'BRL',
+          currency: 'USD',
         })
-      : 'Sob consulta';
+      : 'On request';
   }
   function safeText(s) {
     return String(s ?? '').replace(
