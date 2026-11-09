@@ -34,3 +34,11 @@ Os testes usam pasta temporária para banco, chave de sessão e catálogo, e sim
 ## Créditos
 
 Dados e imagens de cartas: [TCGdex](https://tcgdex.dev), [Scryfall](https://scryfall.com/docs/api) e [MTGJSON](https://mtgjson.com/license/). Magic: The Gathering e Pokémon pertencem a seus respectivos titulares; este projeto não tem afiliação oficial.
+
+## Autor
+
+Criado por **Victor Borra** — [github.com/vctrborra-sys](https://github.com/vctrborra-sys).
+
+## Licença
+
+Distribuído sob a [licença MIT](LICENSE). Você pode usar, copiar e modificar o código, inclusive comercialmente, desde que mantenha o aviso de copyright e a licença.
