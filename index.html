@@ -1,0 +1,1644 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="TCG Marketplace: compra e venda de cartas Pokémon e Magic: The Gathering, acessórios TCG, venda por comissão e avaliação de coleções."
+    />
+    <meta property="og:title" content="TCG Marketplace | Magic & Pokémon" />
+    <meta
+      property="og:description"
+      content="Seu próximo turno começa aqui. Compra e venda de cartas TCG, acessórios, venda por comissão e avaliação de coleções."
+    />
+    <meta property="og:image" content="assets/banner.jpg" />
+    <title>TCG Marketplace | Magic & Pokémon</title>
+    <link rel="icon" type="image/png" href="assets/icone.png" />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/banner.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f6f9;
+        --surface: #ffffff;
+        --surface-alt: #f8f9fb;
+        --art-bg: #eef1f6;
+        --line: #e2e6ec;
+        --line-strong: #cdd4de;
+        --text: #172033;
+        --muted: #5b6677;
+        --navy: #1c2a48;
+        --navy-soft: #eaf0fa;
+        --gold: #f2b440;
+        --gold-hover: #e6a224;
+        --gold-deep: #94600f;
+        --gold-soft: #fff6e3;
+        --danger: #b42318;
+        --success: #17803d;
+        --shadow-sm: 0 1px 2px #1720330f, 0 1px 3px #1720330d;
+        --shadow-md: 0 10px 28px #1720331f;
+        --radius: 12px;
+        --body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        --brand-font: Georgia, 'Times New Roman', serif;
+        font-family: var(--body);
+        background: var(--bg);
+        color: var(--text);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #2f5fd0;
+        outline-offset: 2px;
+      }
+      .container {
+        width: min(1280px, 100%);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 30;
+        top: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+        box-shadow: var(--shadow-sm);
+      }
+      .header-inner {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+      .hero-image[hidden],
+      .hero-placeholder[hidden] {
+        display: none !important;
+      }
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .brand-title {
+        font: 700 30px/1 var(--brand-font);
+        letter-spacing: -0.6px;
+        white-space: nowrap;
+        color: var(--navy);
+      }
+      .brand-title span {
+        color: var(--gold-deep);
+      }
+      .brand-sub {
+        display: none;
+      }
+      .header-search {
+        flex: 1 1 auto;
+        max-width: 720px;
+      }
+      .search-field {
+        position: relative;
+        min-width: 0;
+      }
+      .search-field::before {
+        content: '';
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        background: no-repeat center/contain
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6677' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+      }
+      .search {
+        width: 100%;
+        min-width: 0;
+        min-height: 46px;
+        padding: 11px 16px 11px 44px;
+        border-radius: 999px;
+        border: 1px solid var(--line-strong);
+        background: var(--surface-alt);
+        color: var(--text);
+        outline: none;
+        font-size: 15px;
+        transition:
+          border-color 0.15s,
+          box-shadow 0.15s,
+          background 0.15s;
+      }
+      .search:focus {
+        border-color: var(--navy);
+        background: var(--surface);
+        box-shadow: 0 0 0 4px #1c2a4814;
+      }
+      .search::placeholder {
+        color: #8a94a3;
+      }
+      .search-suggestions {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        z-index: 40;
+        padding: 6px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        box-shadow: var(--shadow-md);
+      }
+      .search-suggestions[hidden] {
+        display: none;
+      }
+      .search-suggestion {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        padding: 11px 12px;
+        border: 0;
+        border-radius: 8px;
+        text-align: left;
+        color: var(--text);
+        background: transparent;
+        font-weight: 500;
+      }
+      .search-suggestion:hover {
+        background: var(--navy-soft);
+      }
+      .search-suggestion span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+      .search-suggestion small {
+        flex-shrink: 0;
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: var(--gold-soft);
+        color: var(--gold-deep);
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 10px;
+        min-height: 46px;
+        padding: 11px 20px;
+        font-weight: 700;
+        font-size: 15px;
+        border: 1px solid transparent;
+        transition:
+          background 0.15s,
+          box-shadow 0.15s,
+          transform 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn-gold {
+        background: var(--gold);
+        color: var(--navy);
+        border-color: var(--gold-hover);
+        box-shadow: 0 2px 6px #e6a2243d;
+      }
+      .btn-gold:hover {
+        background: var(--gold-hover);
+      }
+      .btn-outline {
+        border-color: var(--line-strong);
+        color: var(--text);
+        background: var(--surface);
+      }
+
+      .hero {
+        padding: 24px 0 8px;
+      }
+      .hero-grid {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        align-items: center;
+        min-height: 300px;
+        overflow: hidden;
+        border: 1px solid #f0dfbd;
+        border-radius: 20px;
+        background: linear-gradient(100deg, #fff8ea 0%, #fffcf5 45%, #fff 100%);
+        box-shadow: var(--shadow-sm);
+      }
+      .hero-copy {
+        position: relative;
+        z-index: 2;
+        width: min(560px, 50%);
+        padding: 40px 0 40px 48px;
+      }
+      .eyebrow {
+        color: var(--gold-deep);
+        font-size: 12px;
+        letter-spacing: 1.6px;
+        line-height: 1.6;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        color: var(--navy);
+        font: 800 clamp(34px, 4vw, 54px)/1.04 var(--body);
+        letter-spacing: -0.035em;
+        margin: 0 0 16px;
+      }
+      .hero h1 span,
+      .hero h1 em {
+        display: block;
+      }
+      .hero h1 em {
+        color: var(--gold-deep);
+        font-style: normal;
+      }
+      .hero-copy > p {
+        max-width: 400px;
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: clamp(16px, 1.4vw, 18px);
+        margin: 0;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 26px;
+        scroll-margin-top: 90px;
+      }
+      .hero-actions svg {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+      .hero-image-frame {
+        position: absolute;
+        z-index: 0;
+        inset: 0 0 0 auto;
+        width: 58%;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 30%);
+        mask-image: linear-gradient(90deg, transparent 0, #000 30%);
+      }
+      .hero-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 42%;
+      }
+      .hero-placeholder {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-align: center;
+        padding: 32px;
+        background: var(--gold-soft);
+        color: var(--navy);
+      }
+      .hero-placeholder .hero-symbol {
+        font: 700 80px/1 var(--brand-font);
+        color: var(--gold-deep);
+      }
+      .hero-placeholder strong {
+        font: 700 26px/1.2 var(--brand-font);
+        color: var(--navy);
+      }
+      .hero-placeholder small {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      .section {
+        padding: 26px 0 80px;
+      }
+      .section-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+      .section h2 {
+        font: 800 clamp(26px, 2.6vw, 34px)/1.2 var(--body);
+        letter-spacing: -0.02em;
+        margin: 6px 0;
+        color: var(--navy);
+      }
+      .catalog-source {
+        margin: 0 0 18px;
+        padding: 11px 14px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--navy-soft);
+        border: 1px solid #c9d6ee;
+        border-radius: 10px;
+      }
+      .catalog-source.preview {
+        background: var(--gold-soft);
+        border-color: #f0cf8c;
+      }
+      .catalog-source.problem {
+        background: #fdecea;
+        border-color: #f2b8b0;
+        color: var(--danger);
+      }
+      .collections {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 14px 0 26px;
+      }
+      .collection-tile {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 10px 20px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--text);
+        text-align: left;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          color 0.15s;
+      }
+      .collection-tile:hover {
+        border-color: var(--navy);
+      }
+      .collection-tile strong {
+        font: 700 15px var(--body);
+      }
+      .collection-tile small {
+        display: none;
+      }
+      .collection-tile .tile-icon {
+        order: -1;
+        font-size: 16px;
+        color: var(--gold-deep);
+      }
+      .collection-tile.is-selected {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #fff;
+        box-shadow: 0 4px 14px #1c2a4833;
+      }
+      .collection-tile.is-selected .tile-icon {
+        color: var(--gold);
+      }
+
+      .catalog-layout {
+        display: grid;
+        grid-template-columns: 250px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+      .filters {
+        position: sticky;
+        top: 96px;
+        display: grid;
+        gap: 18px;
+        padding: 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        scroll-margin-top: 100px;
+      }
+      .filter-title {
+        margin: 0;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        color: var(--navy);
+      }
+      select,
+      .price-range input {
+        width: 100%;
+        min-height: 42px;
+        border-radius: 9px;
+        padding: 9px 12px;
+        background: var(--surface);
+        border: 1px solid var(--line-strong);
+        color: var(--text);
+        outline: none;
+        font-size: 14px;
+      }
+      select:focus,
+      .price-range input:focus {
+        border-color: var(--navy);
+        box-shadow: 0 0 0 3px #1c2a4814;
+      }
+      .price-range input::placeholder {
+        color: #8a94a3;
+      }
+      .sort-field {
+        display: grid;
+        gap: 6px;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .price-range {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: end;
+        gap: 10px;
+      }
+      .price-range .price-separator {
+        display: none;
+      }
+      .price-range label {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .price-separator {
+        color: var(--muted);
+        font-size: 12px;
+        padding-bottom: 12px;
+      }
+      .price-group-label {
+        grid-column: 1 / -1;
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        scroll-margin-top: 110px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: var(--shadow-sm);
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .card:hover {
+        border-color: var(--line-strong);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-3px);
+      }
+      .artwrap {
+        position: relative;
+        height: 270px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        cursor: pointer;
+        background: var(--art-bg);
+      }
+      .artwrap img {
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 8px 10px #17203333);
+        transition: transform 0.2s;
+      }
+      .card:hover .artwrap img {
+        transform: scale(1.03);
+      }
+      .card-image-wrap {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        max-width: 100%;
+      }
+      .play-pokemon-badge {
+        position: absolute;
+        right: 0;
+        bottom: 12px;
+        z-index: 1;
+        display: block;
+        width: 30px;
+        border-radius: 0;
+        transform: translateX(50%);
+        pointer-events: none;
+      }
+      .artwrap .play-pokemon-logo,
+      .edition-list .play-pokemon-logo {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        object-fit: contain;
+        filter: none;
+        transform: none;
+      }
+      .edition-list .play-pokemon-badge {
+        position: static;
+        display: inline-block;
+        margin: 3px 6px;
+        vertical-align: middle;
+        transform: none;
+      }
+      .tag {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        border-radius: 6px;
+        background: var(--navy);
+        font-size: 11px;
+        font-weight: 700;
+        color: #fff;
+        padding: 5px 8px;
+        box-shadow: 0 2px 6px #1720332e;
+      }
+      .card .tag {
+        z-index: 2;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 14px 15px 15px;
+        border-top: 1px solid var(--line);
+      }
+      .game {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: var(--gold-deep);
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .info h3 {
+        font: 700 15px/1.35 var(--body);
+        margin: 6px 0 3px;
+        color: var(--text);
+      }
+      .sub {
+        font-size: 12px;
+        color: var(--muted);
+        min-height: 16px;
+      }
+      .inventory-meta {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.5;
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+      }
+      .inventory-pill {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 2px 7px;
+        background: var(--surface-alt);
+        color: var(--text);
+        font-weight: 600;
+      }
+      .inventory-pill.out {
+        border-color: #f2b8b0;
+        background: #fdecea;
+        color: var(--danger);
+      }
+      .inventory-pill.demo {
+        border-color: #c9d6ee;
+        background: var(--navy-soft);
+        color: var(--navy);
+      }
+      .cardbottom {
+        margin-top: auto;
+        padding-top: 14px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .price {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .price strong {
+        display: block;
+        margin-top: 2px;
+        font-size: 19px;
+        font-weight: 800;
+        color: var(--navy);
+        letter-spacing: -0.01em;
+      }
+      .editions-button {
+        padding: 8px 11px;
+        border: 1px solid var(--navy);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--navy);
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .editions-button:hover {
+        background: var(--navy-soft);
+      }
+      .empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 70px 18px;
+        color: var(--muted);
+        background: var(--surface);
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius);
+        font-weight: 600;
+      }
+
+      .pagination-wrap {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 16px 0 0;
+        border-top: 1px solid var(--line);
+      }
+      .pagination-info {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .pagination {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .pagination button {
+        min-width: 40px;
+        height: 40px;
+        border-radius: 9px;
+        border: 1px solid var(--line-strong);
+        background: var(--surface);
+        color: var(--text);
+        padding: 0 13px;
+        font-weight: 600;
+      }
+      .pagination button:hover:not(:disabled) {
+        border-color: var(--navy);
+      }
+      .pagination button.active {
+        background: var(--navy);
+        color: #fff;
+        border-color: var(--navy);
+      }
+      .pagination button:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .pagination-ellipsis {
+        color: var(--muted);
+        padding: 0 3px;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        background: var(--surface);
+        padding: 28px 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .footer strong {
+        color: var(--navy);
+        font-family: var(--brand-font);
+      }
+
+      .overlay {
+        position: fixed;
+        z-index: 50;
+        inset: 0;
+        background: #17203399;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 18px;
+        backdrop-filter: blur(4px);
+      }
+      .overlay.open {
+        display: flex;
+      }
+      .modal {
+        position: relative;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 30px;
+        width: min(820px, 100%);
+        padding: 30px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 30px 80px #17203347;
+        max-height: 94vh;
+        overflow: auto;
+      }
+      .modal > img {
+        width: 100%;
+        max-height: 430px;
+        object-fit: contain;
+        align-self: center;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--art-bg);
+      }
+      .modal-details {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+      .modal h2 {
+        font: 800 26px/1.2 var(--body);
+        letter-spacing: -0.02em;
+        margin: 8px 0 10px;
+        color: var(--navy);
+        padding-right: 30px;
+      }
+      .modal p {
+        line-height: 1.7;
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0 0 10px;
+      }
+      .modal-actions {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: auto;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      .modal-price {
+        display: inline-flex;
+        align-items: center;
+        min-height: 46px;
+        padding: 10px 18px;
+        border: 1px solid var(--navy);
+        border-radius: 10px;
+        background: var(--navy);
+        color: var(--gold);
+        font-size: 19px;
+        font-weight: 800;
+      }
+      .modal .modal-actions .btn {
+        margin-top: 0;
+        margin-left: auto;
+      }
+      .close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface-alt);
+        color: var(--text);
+        width: 36px;
+        height: 36px;
+        font-weight: 700;
+      }
+      .close:hover {
+        background: var(--line);
+      }
+      .edition-list {
+        margin-top: 14px;
+        overflow-x: auto;
+      }
+      .edition-list[hidden] {
+        display: none;
+      }
+      .edition-list table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .edition-list caption {
+        text-align: left;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--navy);
+      }
+      .edition-list th,
+      .edition-list td {
+        padding: 9px 8px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+      }
+      .edition-list th {
+        color: var(--muted);
+        font-size: 12px;
+        background: var(--surface-alt);
+      }
+      .edition-list img {
+        width: 38px;
+        height: 53px;
+        object-fit: contain;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      .edition-list td:not(:first-child) {
+        white-space: nowrap;
+      }
+
+      @media (max-width: 1140px) {
+        .grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 900px) {
+        .catalog-layout {
+          grid-template-columns: 1fr;
+        }
+        .filters {
+          position: static;
+          grid-template-columns: 1fr 1fr;
+          align-items: end;
+        }
+        .filter-title {
+          grid-column: 1 / -1;
+        }
+        .hero-grid {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .hero-copy {
+          width: 100%;
+          padding: 30px 28px 24px;
+        }
+        .hero-image-frame {
+          position: relative;
+          width: 100%;
+          -webkit-mask-image: none;
+          mask-image: none;
+        }
+        .hero-image {
+          height: auto;
+          object-fit: contain;
+        }
+        .hero-placeholder {
+          min-height: 220px;
+        }
+      }
+      @media (max-width: 640px) {
+        .container {
+          padding: 0 16px;
+        }
+        .header-inner {
+          flex-wrap: wrap;
+          gap: 10px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+        .brand-title {
+          font-size: 26px;
+        }
+        .header-search {
+          flex-basis: 100%;
+          max-width: none;
+        }
+        .hero {
+          padding-top: 16px;
+        }
+        .hero-copy {
+          padding: 24px 20px 20px;
+        }
+        .hero h1 {
+          font-size: clamp(29px, 8.6vw, 40px);
+        }
+        .filters {
+          grid-template-columns: 1fr;
+          padding: 16px;
+        }
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 10px;
+        }
+        .artwrap {
+          height: 210px;
+          padding: 10px;
+        }
+        .info {
+          padding: 11px;
+        }
+        .info h3 {
+          font-size: 13px;
+          min-height: 35px;
+        }
+        .sub {
+          font-size: 11px;
+        }
+        .price strong {
+          font-size: 16px;
+        }
+        .pagination-wrap {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .pagination {
+          justify-content: center;
+        }
+        .pagination-info {
+          text-align: center;
+        }
+        .modal {
+          grid-template-columns: 1fr;
+          gap: 14px;
+          padding: 20px;
+        }
+        .modal > img {
+          max-height: 260px;
+        }
+        .modal h2 {
+          font-size: 21px;
+        }
+      }
+      @media (max-width: 360px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .artwrap {
+          height: 280px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#inicio" aria-label="TCG Marketplace — início">
+          <span class="brand-text"
+            ><span class="brand-title">TCG <span>Marketplace</span></span
+            ><span class="brand-sub">Cartas & colecionáveis</span></span
+          >
+        </a>
+        <div class="search-field header-search">
+          <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="Buscar uma carta pelo nome..."
+            aria-label="Buscar cartas"
+            autocomplete="off"
+            maxlength="90"
+          />
+          <div
+            id="searchSuggestions"
+            class="search-suggestions"
+            role="group"
+            aria-label="Sugestões de cartas"
+            hidden
+          ></div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="hero" id="inicio">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <h1><span>Seu próximo turno</span> <em>começa aqui.</em></h1>
+              <p>Cartas, coleções e universos que movem a sua paixão pelo TCG.</p>
+              <div class="hero-actions" id="contato">
+                <a
+                  class="btn btn-gold"
+                  data-whatsapp
+                  href="https://wa.me/5500000000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M21 11.5a9 9 0 0 1-13.3 7.9L3 21l1.6-4.7A9 9 0 1 1 21 11.5Z" />
+                    <path
+                      d="m8.2 7.4 1.5 2.5-1 1.1a8.2 8.2 0 0 0 4.2 4.2l1.1-1 2.5 1.5c-.3 1.4-1.3 2-2.5 1.7-3.7-.9-6.9-4.1-7.8-7.8-.3-1.2.3-2.2 2-2.2Z"
+                    /></svg
+                  >Falar no WhatsApp</a
+                >
+              </div>
+            </div>
+            <div class="hero-image-frame">
+              <img
+                class="hero-image"
+                id="heroPhoto"
+                src="assets/banner.webp"
+                width="1448"
+                height="1086"
+                alt="Imagem de apresentação da TCG Marketplace"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <div
+                class="hero-placeholder"
+                id="heroPlaceholder"
+                hidden
+                aria-label="Identidade visual TCG Marketplace"
+              >
+                <span class="hero-symbol" aria-hidden="true">T</span><strong>TCG MARKETPLACE</strong
+                ><small>Magic · Pokémon · Colecionáveis</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section container" id="catalogo">
+        <div class="section-top">
+          <div><h2>Explore as Cartas</h2></div>
+        </div>
+        <div
+          class="catalog-source"
+          id="catalogSource"
+          role="status"
+          aria-live="polite"
+          hidden
+        ></div>
+        <div class="collections" aria-label="Filtrar por universo">
+          <button class="collection-tile" type="button" data-select-game="Magic">
+            <span
+              ><strong>Magic: The Gathering</strong
+              ><small>Magia, estratégia e cartas lendárias</small></span
+            ><span class="tile-icon" aria-hidden="true">✦</span>
+          </button>
+          <button class="collection-tile" type="button" data-select-game="Pokémon">
+            <span
+              ><strong>Pokemon TCG</strong
+              ><small>Descobertas, nostalgia e criaturas incríveis</small></span
+            ><span class="tile-icon" aria-hidden="true">✦</span>
+          </button>
+          <button class="collection-tile" type="button" data-select-game="all">
+            <span><strong>Todos</strong><small>Todas as cartas da vitrine</small></span
+            ><span class="tile-icon" aria-hidden="true">✦</span>
+          </button>
+        </div>
+        <div class="catalog-layout">
+          <aside class="filters" aria-label="Filtros do catálogo">
+            <p class="filter-title">Filtros</p>
+            <label class="sort-field" for="sortBy"
+              ><span>Ordenar por</span>
+              <select id="sortBy" aria-label="Ordenar cartas">
+                <option value="default">Ordem do catálogo</option>
+                <option value="nameAsc">Nome: A–Z</option>
+                <option value="nameDesc">Nome: Z–A</option>
+                <option value="priceAsc">Preço Menor [0-9]</option>
+                <option value="priceDesc" selected>Preço: Maior [9-0]</option>
+              </select>
+            </label>
+            <div class="price-range" role="group" aria-label="Filtrar por faixa de preço">
+              <span class="price-group-label" aria-hidden="true">Faixa de preço</span>
+              <label for="minPrice"
+                ><span>Mínimo (R$)</span
+                ><input
+                  type="number"
+                  id="minPrice"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  placeholder="0,00"
+              /></label>
+              <span class="price-separator" aria-hidden="true">até</span>
+              <label for="maxPrice"
+                ><span>Máximo (R$)</span
+                ><input
+                  type="number"
+                  id="maxPrice"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  placeholder="Sem limite"
+              /></label>
+            </div>
+          </aside>
+          <div class="results">
+            <div class="grid" id="grid" aria-live="polite"></div>
+            <div class="pagination-wrap">
+              <div class="pagination-info" id="paginationInfo"></div>
+              <div class="pagination" id="pagination" aria-label="Paginação do catálogo"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <span
+          >© <span id="year"></span> <strong>TCG Marketplace</strong>. Um projeto independente de
+          colecionáveis.</span
+        ><span
+          >Magic e Pokémon pertencem a seus respectivos titulares. Catálogo ilustrativo, sem
+          afiliação oficial. Arte de Magic: Scryfall, quando aplicável.</span
+        >
+      </div>
+    </footer>
+    <div
+      class="overlay"
+      id="overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalName"
+      aria-hidden="true"
+    >
+      <div class="modal" role="document">
+        <button class="close" id="close" aria-label="Fechar detalhes">✕</button>
+        <img id="modalImage" alt="" />
+        <div class="modal-details">
+          <div class="eyebrow" id="modalGame"></div>
+          <h2 id="modalName"></h2>
+          <p id="modalDesc"></p>
+          <p id="modalMeta"></p>
+          <div id="modalEditions" class="edition-list" hidden></div>
+          <div class="modal-actions">
+            <span class="modal-price" id="modalPrice"></span
+            ><a
+              class="btn btn-gold"
+              id="modalContact"
+              data-whatsapp
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Consultar carta <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/catalog-shared.js?v=20261026-play-pokemon"></script>
+    <script src="assets/search-suggestions.js"></script>
+    <script src="assets/catalog-groups.js?v=20261026-play-pokemon"></script>
+    <script>
+      const publishedCatalogReady = new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = 'assets/catalogo.js?atualizacao=' + Date.now();
+        script.onload = () => resolve(true);
+        script.onerror = () => resolve(false);
+        document.head.appendChild(script);
+      });
+    </script>
+    <script>
+      (async function iniciarVitrine() {
+        const heroPhoto = document.getElementById('heroPhoto');
+        const showHeroPlaceholder = () => {
+          heroPhoto.hidden = true;
+          document.getElementById('heroPlaceholder').hidden = false;
+        };
+        heroPhoto.addEventListener('error', showHeroPlaceholder, {
+          once: true,
+        });
+        if (heroPhoto.complete && !heroPhoto.naturalWidth) showHeroPlaceholder();
+        const publishedCatalogLoaded = await publishedCatalogReady;
+        const WHATSAPP_NUMBER = '5500000000000';
+        const HERO_WHATSAPP_MESSAGE =
+          'Olá, tudo bem? Vim pelo site TCG Marketplace e gostaria de saber mais sobre o site.';
+        const heroWhatsappUrl =
+          'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(HERO_WHATSAPP_MESSAGE);
+        const heroWhatsapp = document.querySelector('.hero-actions [data-whatsapp]');
+        if (heroWhatsapp) heroWhatsapp.href = heroWhatsappUrl;
+        const store = window.MarketplaceCatalog;
+        const preview = new URLSearchParams(window.location.search).get('preview') === '1';
+        const catalogDoc = preview ? store.get() : store.bundled();
+        const catalogSource = document.getElementById('catalogSource');
+        if (preview) {
+          catalogSource.hidden = false;
+          catalogSource.classList.add('preview');
+          catalogSource.textContent =
+            'PRÉVIA LOCAL — estas alterações podem ainda não estar publicadas. Use “Exportar para o site” no painel para atualizar os visitantes.';
+        } else if (!publishedCatalogLoaded) {
+          catalogSource.hidden = false;
+          catalogSource.classList.add('problem');
+          catalogSource.textContent =
+            'Não foi possível carregar assets/catalogo.js. Verifique se o arquivo existe no mesmo site e na pasta correta.';
+        }
+        const placeholder =
+          'data:image/svg+xml;charset=utf-8,' +
+          encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420"><rect width="100%" height="100%" rx="17" fill="#eef1f6"/><rect x="15" y="15" width="270" height="390" rx="12" fill="none" stroke="#d9a441" stroke-width="3"/><text x="150" y="195" text-anchor="middle" fill="#1c2a48" font-size="24" font-family="Georgia">TCG</text><text x="150" y="226" text-anchor="middle" fill="#94600f" font-size="24" font-family="Georgia">MARKETPLACE</text></svg>',
+          );
+        let cards = catalogDoc.items;
+        let displayedCards = [];
+        const PAGE_SIZE = 12;
+        let currentPage = 1;
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+        let selectedGame = 'all';
+        let selectedSuggestion = null;
+        const minPrice = document.getElementById('minPrice');
+        const maxPrice = document.getElementById('maxPrice');
+        const sortBy = document.getElementById('sortBy');
+        const pagination = document.getElementById('pagination');
+        const paginationInfo = document.getElementById('paginationInfo');
+        const overlay = document.getElementById('overlay');
+        const closeButton = document.getElementById('close');
+        let priorFocus = null;
+        const cachedImages = new Map();
+        const e = store.safeText;
+        function imageFor(c) {
+          return store.url(c.image) || cachedImages.get(c.scryfall) || placeholder;
+        }
+        function inventory(c) {
+          if (c.demo) return '<span class="inventory-pill demo">Carta ilustrativa</span>';
+          return `<span class="inventory-pill ${c.quantity === 0 ? 'out' : ''}">${c.quantity ? c.quantity + ' ' + (c.quantity === 1 ? 'Unidade' : 'Unidades') : 'Esgotada'}</span><span class="inventory-pill">${e(c.condition || 'Conservação sob consulta')}</span>${c.language ? `<span class="inventory-pill">${e(c.language)}</span>` : ''}`;
+        }
+        function updateFilterHighlights() {
+          document.querySelectorAll('[data-select-game]').forEach((button) => {
+            const selected = selectedGame === button.dataset.selectGame;
+            button.classList.toggle('is-selected', selected);
+            button.setAttribute('aria-pressed', String(selected));
+            button.querySelector('.tile-icon').textContent = selected ? '◈' : '✦';
+          });
+          document.querySelectorAll('[data-filter]').forEach((link) => {
+            const selected = selectedGame === link.dataset.filter;
+            link.classList.toggle('is-selected', selected);
+            if (selected) link.setAttribute('aria-current', 'true');
+            else link.removeAttribute('aria-current');
+          });
+        }
+        function playPokemonBadge(card) {
+          if (
+            card.game !== 'Pokémon' ||
+            card.playPokemon !== true ||
+            !/^[0-9]{1,30}$/.test(card.playPokemonNumber || '')
+          )
+            return '';
+          return '<span class="play-pokemon-badge" title="Play Pokemon"><img class="play-pokemon-logo" src="assets/play-pokemon.png?v=20261026-simbolo" alt="Play Pokemon"></span>';
+        }
+        function cardArtwork(card) {
+          const image =
+            '<img src="' +
+            e(imageFor(card)) +
+            '" alt="Carta ' +
+            e(card.name) +
+            '" loading="lazy" decoding="async">';
+          const badge = playPokemonBadge(card);
+          return badge ? '<span class="card-image-wrap">' + image + badge + '</span>' : image;
+        }
+        function render() {
+          updateFilterHighlights();
+          const minValue =
+            minPrice.value !== '' && Number.isFinite(minPrice.valueAsNumber)
+              ? Math.max(0, minPrice.valueAsNumber)
+              : null;
+          const maxValue =
+            maxPrice.value !== '' && Number.isFinite(maxPrice.valueAsNumber)
+              ? Math.max(0, maxPrice.valueAsNumber)
+              : null;
+          const match = window.MarketplaceGroups.group(cards).filter((c) => {
+            const price = typeof c.price === 'number' && Number.isFinite(c.price) ? c.price : null;
+            return (
+              c.published &&
+              (selectedGame === 'all' || c.game === selectedGame) &&
+              window.MarketplaceSearch.matchesCard(c, search.value, selectedSuggestion) &&
+              (minValue === null || (price !== null && price >= minValue)) &&
+              (maxValue === null || (price !== null && price <= maxValue))
+            );
+          });
+          const compareNames = (a, b) =>
+            String(a.name || '').localeCompare(String(b.name || ''), 'pt-BR', {
+              sensitivity: 'base',
+              numeric: true,
+            });
+          const comparePrices = (a, b, direction) => {
+            const aKnown = typeof a.price === 'number' && Number.isFinite(a.price);
+            const bKnown = typeof b.price === 'number' && Number.isFinite(b.price);
+            if (aKnown !== bKnown) return aKnown ? -1 : 1;
+            return (aKnown ? direction * (a.price - b.price) : 0) || compareNames(a, b);
+          };
+          if (sortBy.value === 'nameAsc') match.sort(compareNames);
+          else if (sortBy.value === 'nameDesc') match.sort((a, b) => -compareNames(a, b));
+          else if (sortBy.value === 'priceAsc') match.sort((a, b) => comparePrices(a, b, 1));
+          else if (sortBy.value === 'priceDesc') match.sort((a, b) => comparePrices(a, b, -1));
+          displayedCards = match;
+          const totalPages = Math.max(1, Math.ceil(match.length / PAGE_SIZE));
+          if (currentPage > totalPages) currentPage = totalPages;
+          const start = (currentPage - 1) * PAGE_SIZE;
+          const end = start + PAGE_SIZE;
+          const visibleCards = match.slice(start, end);
+          grid.innerHTML = visibleCards.length
+            ? visibleCards
+                .map(
+                  (c) =>
+                    `<article class="card" data-game="${e(c.game)}"><div class="artwrap" data-id="${e(c.id)}">${c.categories?.length ? '<span class="tag">' + e(c.categories.join(' / ')) + '</span>' : ''}${cardArtwork(c)}</div>` +
+                    `<div class="info"><div class="game">${c.game === 'Magic' ? 'Magic: The Gathering' : 'Pokémon TCG'}</div><h3>${e(c.name)}</h3><div class="sub">${c.variants ? c.editionCount + ' edições' : e(c.set)}</div>` +
+                    `<div class="inventory-meta">${inventory(c)}</div><div class="cardbottom"><span class="price">${c.variants ? 'Apartir de:' : c.demo ? 'Preço demonstrativo' : 'Preço'}<strong>${c.demo ? 'Sob consulta' : store.money(c.price)}</strong></span>` +
+                    `${c.variants ? '<button class="editions-button" type="button" data-id="' + e(c.id) + '">Ver edições (' + c.editionCount + ')</button>' : ''}</div></div></article>`,
+                )
+                .join('')
+            : search.value.trim()
+              ? '<div class="empty">Carta não disponivel</div>'
+              : '<div class="empty">Nenhuma carta encontrada. Experimente outro nome ou filtro.</div>';
+          grid.querySelectorAll('.artwrap > img, .card-image-wrap > img').forEach((img) =>
+            img.addEventListener(
+              'error',
+              () => {
+                if (img.src !== placeholder) img.src = placeholder;
+              },
+              {
+                once: true,
+              },
+            ),
+          );
+          if (match.length) {
+            paginationInfo.textContent = `Mostrando ${start + 1}–${Math.min(end, match.length)} de ${match.length} cartas`;
+          } else {
+            paginationInfo.textContent = 'Nenhum resultado encontrado';
+          }
+          if (totalPages <= 1) {
+            pagination.replaceChildren();
+            pagination.hidden = true;
+          } else {
+            pagination.hidden = false;
+            const pages = [];
+            pages.push(
+              `<button type="button" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Página anterior">← Anterior</button>`,
+            );
+            let lastPage = 0;
+            for (let page = 1; page <= totalPages; page++) {
+              if (page !== 1 && page !== totalPages && Math.abs(page - currentPage) > 1) continue;
+              if (lastPage && page > lastPage + 1)
+                pages.push('<span class="pagination-ellipsis" aria-hidden="true">…</span>');
+              pages.push(
+                `<button type="button" data-page="${page}" class="${page === currentPage ? 'active' : ''}" ${page === currentPage ? 'aria-current="page"' : ''} aria-label="Página ${page}">${page}</button>`,
+              );
+              lastPage = page;
+            }
+            pages.push(
+              `<button type="button" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Próxima página">Próxima →</button>`,
+            );
+            pagination.innerHTML = pages.join('');
+          }
+        }
+        function openCard(card) {
+          if (!card) return;
+          priorFocus = document.activeElement;
+          document.getElementById('modalImage').src = imageFor(card);
+          document.getElementById('modalImage').alt = 'Carta ' + card.name;
+          document.getElementById('modalGame').textContent =
+            card.game === 'Magic' ? 'Magic: The Gathering' : 'Pokémon TCG';
+          document.getElementById('modalName').textContent = card.name;
+          const descriptionEl = document.getElementById('modalDesc');
+          descriptionEl.textContent = card.description || '';
+          descriptionEl.hidden = !card.description;
+          document.getElementById('modalMeta').textContent =
+            card.set +
+            ' · ' +
+            card.rarity +
+            (card.categories?.length ? ' · ' + card.categories.join(' · ') : '') +
+            (card.playPokemon ? ' · Play Pokemon · Nº ' + card.playPokemonNumber : '') +
+            (card.language ? ' · Idioma: ' + card.language : '') +
+            (card.demo
+              ? ' · Exemplo ilustrativo'
+              : ' · Estado: ' +
+                (card.condition || 'sob consulta') +
+                ' · ' +
+                (card.quantity ? 'Estoque: ' + card.quantity : 'Esgotada'));
+          document.getElementById('modalPrice').textContent =
+            (card.variants ? 'Apartir de: ' : '') + store.money(card.demo ? null : card.price);
+          const editions = document.getElementById('modalEditions');
+          editions.hidden = !card.variants;
+          editions.innerHTML = card.variants
+            ? '<table><caption>Todas as edições</caption><thead><tr><th>Edição</th><th>Preço</th><th>Quantidade</th></tr></thead><tbody>' +
+              card.variants
+                .map(
+                  (variant) =>
+                    '<tr><td><img src="' +
+                    e(imageFor(variant)) +
+                    '" alt="' +
+                    e(variant.name) +
+                    '" loading="lazy" decoding="async">' +
+                    playPokemonBadge(variant) +
+                    e(variant.set || 'Edição não informada') +
+                    '</td><td>' +
+                    store.money(variant.price) +
+                    '</td><td>' +
+                    e(variant.quantity) +
+                    '</td></tr>',
+                )
+                .join('') +
+              '</tbody></table>'
+            : '';
+          const condition = card.condition || 'sob consulta';
+          const cardMessage = `Olá, tudo bem? Vim pelo site TCG Marketplace e gostaria de saber mais sobre a carta ${card.name}, edição ${card.set}, condição ${condition}.`;
+          document.getElementById('modalContact').href =
+            'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(cardMessage);
+          overlay.classList.add('open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+          closeButton.focus();
+        }
+        function closeCard() {
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+          if (priorFocus && priorFocus.isConnected) priorFocus.focus();
+        }
+        const resetAndRender = () => {
+          currentPage = 1;
+          render();
+        };
+        const suggestions = window.MarketplaceSearch.attach({
+          input: search,
+          container: document.getElementById('searchSuggestions'),
+          getGame: () => selectedGame,
+          getCards: () => cards,
+          onSelect: (item) => {
+            selectedSuggestion = item;
+            resetAndRender();
+          },
+        });
+        search.addEventListener('input', () => {
+          selectedSuggestion = null;
+          resetAndRender();
+        });
+        [minPrice, maxPrice, sortBy].forEach((el) => el.addEventListener('input', resetAndRender));
+        [minPrice, maxPrice, sortBy].forEach((el) => el.addEventListener('change', resetAndRender));
+        grid.addEventListener('click', (ev) => {
+          const b = ev.target.closest('[data-id]');
+          if (b) openCard(displayedCards.find((c) => c.id === b.dataset.id));
+        });
+        closeButton.addEventListener('click', closeCard);
+        overlay.addEventListener('click', (ev) => {
+          if (ev.target === overlay) closeCard();
+        });
+        document.addEventListener('keydown', (ev) => {
+          if (!overlay.classList.contains('open')) return;
+          if (ev.key === 'Escape') closeCard();
+          if (ev.key === 'Tab') {
+            const focusables = Array.from(
+              overlay.querySelectorAll('a[href], button:not([disabled])'),
+            );
+            const first = focusables[0],
+              last = focusables[focusables.length - 1];
+            if (ev.shiftKey && document.activeElement === first) {
+              ev.preventDefault();
+              last.focus();
+            } else if (!ev.shiftKey && document.activeElement === last) {
+              ev.preventDefault();
+              first.focus();
+            }
+          }
+        });
+        pagination.addEventListener('click', (ev) => {
+          const button = ev.target.closest('[data-page]');
+          if (!button || button.disabled) return;
+          currentPage = Number(button.dataset.page) || 1;
+          render();
+          grid.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        });
+        document.querySelectorAll('[data-filter]').forEach((a) =>
+          a.addEventListener('click', () => {
+            selectedGame = a.dataset.filter;
+            selectedSuggestion = null;
+            suggestions.clear();
+            currentPage = 1;
+            render();
+          }),
+        );
+        document.querySelectorAll('[data-select-game]').forEach((b) =>
+          b.addEventListener('click', () => {
+            selectedGame = b.dataset.selectGame;
+            selectedSuggestion = null;
+            search.value = '';
+            suggestions.clear();
+            if (selectedGame === 'all') {
+              minPrice.value = '';
+              maxPrice.value = '';
+            }
+            currentPage = 1;
+            render();
+            document.querySelector('.filters').scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
+          }),
+        );
+        document.getElementById('year').textContent = new Date().getFullYear();
+        window.addEventListener('storage', (ev) => {
+          if (preview && ev.key === store.KEY) {
+            cards = store.get().items;
+            currentPage = 1;
+            render();
+          }
+        });
+        render();
+        Promise.all(
+          cards
+            .filter((c) => c.scryfall && !c.image)
+            .map(async (c) => {
+              try {
+                const res = await fetch(
+                  'https://api.scryfall.com/cards/named?exact=' + encodeURIComponent(c.scryfall),
+                );
+                if (!res.ok) return;
+                const j = await res.json();
+                const img = j.image_uris?.normal || j.card_faces?.[0]?.image_uris?.normal;
+                if (img?.startsWith('https://')) cachedImages.set(c.scryfall, img);
+              } catch {}
+            }),
+        ).then(render);
+      })();
+    </script>
+  </body>
+</html>

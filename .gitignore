@@ -1,0 +1,9 @@
+# Dados e credenciais não devem ser publicados
+**/.venv/
+**/__pycache__/
+**/dados/*.sqlite3
+**/dados/*.sqlite3-*
+**/dados/.chave-sessao
+**/dados/backups/
+**/.env
+**/*.log

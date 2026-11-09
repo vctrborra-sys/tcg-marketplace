@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf }}" />
+    <title>TCG Marketplace | Central Administrativa Windows</title>
+    <link rel="stylesheet" href="/static/painel.css?v=20261109-tema-claro" />
+    <script src="/static/painel.js?v=20261027-clientes" defer></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="header-wrap">
+        <div class="logo">
+          <div class="crest">T</div>
+          <div>
+            <b>TCG <span>Marketplace</span></b
+            ><small>Central de administração · Windows</small>
+          </div>
+        </div>
+        <div class="account">
+          <span id="account-name"></span
+          ><a target="_blank" rel="noopener" href="https://seu-usuario.github.io/tcg-marketplace/"
+            >Ver vitrine ↗</a
+          ><button id="logout" class="subtle" hidden>Sair</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section id="login-screen" class="login-panel">
+        <div class="eyebrow">Acesso protegido</div>
+        <h1>Gerencie sua coleção.</h1>
+        <p>Acesse o painel local para manter seus preços, estoque e histórico atualizados.</p>
+        <form id="login-form">
+          <label
+            >Usuário<input
+              autocomplete="username"
+              id="login-user"
+              required
+              placeholder="admin" /></label
+          ><label
+            >Senha<input
+              autocomplete="current-password"
+              type="password"
+              id="login-pass"
+              required /></label
+          ><button class="primary" type="submit">Entrar no painel →</button>
+          <p id="login-error" class="form-error" role="alert" aria-live="assertive"></p>
+        </form>
+        <p class="hint" id="install-hint" hidden>
+          Primeiro execute <code>INSTALAR_WINDOWS.bat</code> e crie a conta admin.
+        </p>
+      </section>
+      <section id="dashboard" hidden>
+        <div class="intro">
+          <div>
+            <div class="eyebrow">Painel administrativo</div>
+            <h1>Seu estoque, organizado.</h1>
+            <p>Cadastre, edite e sincronize cartas de Pokémon e Magic no GitHub Pages.</p>
+          </div>
+          <div class="publish">
+            <div class="publish-line">
+              <span class="dot"></span><strong id="sync-state">Verificando...</strong>
+            </div>
+            <div id="sync-info" class="muted">Repositório: seu-usuario/tcg-marketplace</div>
+            <button class="primary" id="publish-now">Publicar agora no GitHub ↗</button>
+          </div>
+        </div>
+        <nav class="tabs" aria-label="Áreas do painel">
+          <button data-tab="collection" class="active">Coleção</button
+          ><button data-tab="history">Histórico</button
+          ><button data-tab="sales">Histórico de vendas</button
+          ><button data-tab="clients" id="clients-tab" hidden>Clientes</button
+          ><button data-tab="users">Usuários</button
+          ><button data-tab="settings">Minha conta</button>
+        </nav>
+        <div id="message" role="status" aria-live="polite"></div>
+        <section id="tab-collection">
+          <div class="panel-heading">
+            <div>
+              <h2>Cartas cadastradas <span class="count" id="cards-count"></span></h2>
+              <p>
+                Editores podem alterar somente as cartas que cadastraram. O administrador pode
+                gerenciar todas as cartas.
+              </p>
+            </div>
+            <button class="primary" id="new-card">+ Cadastrar carta</button>
+          </div>
+          <div class="collection-value">
+            <span>Valor da coleção</span><strong id="collection-total">—</strong>
+          </div>
+          <div class="toolbar">
+            <input
+              id="filter-name"
+              placeholder="Buscar por nome, edição ou descrição..."
+              aria-label="Buscar cartas por nome, edição ou descrição"
+            /><select id="filter-game" aria-label="Filtrar por jogo">
+              <option value="">Todos os jogos</option>
+              <option>Pokémon</option>
+              <option>Magic</option>
+            </select>
+          </div>
+          <p class="table-hint">
+            Em telas pequenas, cada carta aparece em um bloco com suas ações.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Carta</th>
+                  <th>Jogo</th>
+                  <th>Conservação</th>
+                  <th>Preço</th>
+                  <th>Qtd.</th>
+                  <th>Cadastrado por</th>
+                  <th>Vitrine</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="cards-body"></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="tab-history" hidden>
+          <div class="panel-heading">
+            <div>
+              <h2>Histórico de alterações</h2>
+              <p>
+                Quem fez cada operação, quando e o que foi alterado. As exclusões também permanecem
+                registradas.
+              </p>
+            </div>
+          </div>
+          <div id="audit-list" class="history"></div>
+        </section>
+        <section id="tab-sales" hidden>
+          <div class="panel-heading">
+            <div>
+              <h2>Histórico de vendas</h2>
+              <p>As vendas permanecem registradas mesmo após editar ou excluir a carta.</p>
+            </div>
+            <div class="sales-revenue">Receita total <strong id="sales-total">R$ 0,00</strong></div>
+          </div>
+          <div id="sales-list" class="history"></div>
+        </section>
+        <section id="tab-clients" hidden>
+          <div class="panel-heading">
+            <div>
+              <h2>Clientes</h2>
+              <p>Clientes e comissões ficam somente no administrativo.</p>
+            </div>
+            <button class="primary" id="new-client">+ Cadastrar cliente</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>CPF</th>
+                  <th>Comissão</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="clients-body"></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="tab-users" hidden>
+          <div class="panel-heading">
+            <div>
+              <h2>Usuários do sistema</h2>
+              <p>Cada usuário possui sua própria senha e identificação no histórico.</p>
+            </div>
+          </div>
+          <div id="users-list" class="users-list"></div>
+          <div id="user-create">
+            <h3>Criar usuário</h3>
+            <form id="user-form" class="inline-form">
+              <label
+                >Nome de usuário<input
+                  id="new-username"
+                  required
+                  minlength="3"
+                  maxlength="32"
+                  autocomplete="off" /></label
+              ><label
+                >Senha inicial<input
+                  id="new-userpass"
+                  type="password"
+                  minlength="12"
+                  required
+                  autocomplete="new-password" /></label
+              ><label
+                >Perfil<select id="new-role">
+                  <option value="editor">Editor</option>
+                  <option value="proprietario">Proprietário</option>
+                </select></label
+              ><button class="primary" type="submit">Criar conta</button>
+              <p id="user-form-error" class="form-error" role="alert" aria-live="assertive"></p>
+            </form>
+          </div>
+        </section>
+        <section id="tab-settings" hidden>
+          <h2>Minha conta</h2>
+          <p>Troque sua senha regularmente. O banco de dados fica somente no computador Windows.</p>
+          <form id="password-form" class="inline-form">
+            <label
+              >Senha atual<input
+                id="old-password"
+                required
+                type="password"
+                autocomplete="current-password" /></label
+            ><label
+              >Nova senha<input
+                id="new-password"
+                required
+                type="password"
+                minlength="12"
+                autocomplete="new-password" /></label
+            ><button class="primary" type="submit">Trocar senha</button>
+            <p id="password-form-error" class="form-error" role="alert" aria-live="assertive"></p>
+          </form>
+          <p class="hint">
+            O token do GitHub é configurado pelo arquivo <code>CONFIGURAR_GITHUB.bat</code>, sem ser
+            exibido neste painel.
+          </p>
+        </section>
+      </section>
+    </main>
+    <dialog id="card-dialog" aria-labelledby="dialog-title">
+      <form id="card-form">
+        <div class="dialog-head">
+          <div>
+            <span class="eyebrow">Estoque</span>
+            <h2 id="dialog-title">Cadastrar carta</h2>
+          </div>
+          <button type="button" id="cancel-x" class="subtle" aria-label="Fechar">✕</button>
+        </div>
+        <div class="search-block">
+          <h3>Pesquisar cartas e escolher a impressão</h3>
+          <div class="search-game-tabs" role="tablist" aria-label="Escolha a base de cartas">
+            <button
+              type="button"
+              role="tab"
+              class="active"
+              id="search-tab-pokemon"
+              aria-selected="true"
+              data-search-game="Pokémon"
+            >
+              ◈ Pokémon TCG
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id="search-tab-magic"
+              aria-selected="false"
+              data-search-game="Magic"
+            >
+              ✦ Magic: The Gathering
+            </button>
+          </div>
+          <div class="search-print-fields">
+            <label class="print-name-field"
+              >Nome da carta
+              <input
+                id="api-search"
+                placeholder="Ex.: Pikachu, Zoroark..."
+                autocomplete="off"
+                spellcheck="false"
+                aria-label="Nome da carta a pesquisar"
+              />
+            </label>
+            <label id="magic-set-field" hidden
+              >Código da coleção (opcional)
+              <input
+                id="magic-set-code"
+                placeholder="Ex.: sld, mh3, 2xm"
+                maxlength="12"
+                autocomplete="off"
+                spellcheck="false"
+              />
+            </label>
+            <label id="magic-lang-field" hidden
+              >Idioma da impressão
+              <select id="magic-print-lang" aria-label="Idioma da impressão encontrada">
+                <option value="en">Inglês</option>
+                <option value="pt">Português</option>
+                <option value="es">Espanhol</option>
+                <option value="ja">Japonês</option>
+                <option value="fr">Francês</option>
+                <option value="de">Alemão</option>
+                <option value="it">Italiano</option>
+              </select>
+            </label>
+          </div>
+          <button type="button" class="primary search-action" id="api-search-btn">
+            ⌕ Buscar Pokémon
+          </button>
+          <p id="search-tip">
+            Veja as imagens, edições e números disponíveis. Clique na impressão correta para
+            cadastrar. O idioma físico da carta é definido abaixo.
+          </p>
+          <div
+            id="search-status"
+            class="search-results-status"
+            role="status"
+            aria-live="polite"
+          ></div>
+          <div
+            id="api-results"
+            class="api-results print-results"
+            aria-label="Impressões encontradas"
+          ></div>
+          <button type="button" id="more-prints" class="secondary more-prints" hidden>
+            Mostrar mais impressões
+          </button>
+        </div>
+        <div class="fields">
+          <label
+            >Jogo<select id="card-game" required>
+              <option value="Pokémon">Pokémon TCG</option>
+              <option value="Magic">Magic: The Gathering</option>
+            </select></label
+          >
+          <label>Nome da carta<input id="card-name" required maxlength="120" /></label>
+          <label
+            >Edição / número<input
+              id="card-set"
+              maxlength="140"
+              placeholder="Ex.: Base Set · 4/102"
+          /></label>
+          <label>Raridade<select id="card-rarity" required></select></label>
+          <fieldset class="wide card-category-field">
+            <legend>Categorias (opcional)</legend>
+            <p id="categories-tip">
+              Marque as características da sua carta. É possível selecionar mais de uma; a raridade
+              permanece no campo acima.
+            </p>
+            <div
+              id="card-categories"
+              class="category-options"
+              aria-describedby="categories-tip"
+            ></div>
+          </fieldset>
+          <div id="play-pokemon-fields" class="wide" hidden>
+            <label class="checkbox"
+              ><input id="card-play-pokemon" type="checkbox" /> Play Pokemon</label
+            >
+            <p id="play-pokemon-restart" class="muted" hidden>
+              Reinicie o painel para habilitar Play Pokemon.
+            </p>
+            <label id="play-pokemon-number-field" hidden
+              >Número Play Pokemon<input
+                id="card-play-pokemon-number"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]{1,30}"
+                maxlength="30"
+                disabled
+            /></label>
+          </div>
+          <fieldset id="card-commission-fields" class="wide card-category-field" hidden>
+            <legend>Comissão do cliente</legend>
+            <label class="checkbox"
+              ><input id="card-commission" type="checkbox" /> Gera comissão para cliente</label
+            ><label id="card-client-field" hidden
+              >Cliente e porcentagem da comissão<select id="card-client" disabled></select
+            ></label>
+          </fieldset>
+          <label
+            >Conservação<select id="card-condition" required>
+              <option>NM</option>
+              <option>SP</option>
+              <option>MP</option>
+              <option>HP</option>
+              <option>D</option>
+            </select></label
+          >
+          <label
+            >Idioma da carta *<input
+              id="card-language"
+              list="language-options"
+              maxlength="60"
+              required
+              placeholder="Selecione ou digite o idioma"
+              autocomplete="off" /><datalist id="language-options">
+              <option value="Português"></option>
+              <option value="Inglês"></option>
+              <option value="Espanhol"></option>
+              <option value="Japonês"></option>
+              <option value="Francês"></option>
+              <option value="Alemão"></option>
+              <option value="Italiano"></option>
+              <option value="Coreano"></option>
+              <option value="Chinês simplificado"></option>
+              <option value="Chinês tradicional"></option>
+              <option value="Russo"></option>
+              <option value="Indonésio"></option>
+              <option value="Tailandês"></option></datalist
+          ></label>
+          <label
+            >Preço (R$)<input
+              id="card-price"
+              type="number"
+              min="0"
+              max="100000000"
+              step="0.01"
+              required
+              value="0"
+          /></label>
+          <label
+            >Quantidade<input
+              id="card-quantity"
+              type="number"
+              min="0"
+              max="1000000"
+              step="1"
+              required
+              value="1"
+          /></label>
+          <label
+            >URL da imagem<input
+              id="card-image"
+              type="text"
+              placeholder="https://... ou assets/imagem.webp"
+          /></label>
+          <label class="wide"
+            >Descrição / observações (opcional)<textarea
+              id="card-description"
+              rows="3"
+              maxlength="1200"
+              placeholder=""
+            ></textarea>
+          </label>
+          <label class="checkbox wide"
+            ><input id="card-published" type="checkbox" checked /> Exibir na vitrine (padrão)</label
+          >
+        </div>
+        <p id="card-error" class="form-error" role="alert" aria-live="assertive"></p>
+        <div class="dialog-actions">
+          <button type="button" class="secondary" id="duplicate-card" hidden>Adicionar cópia</button
+          ><button type="button" class="subtle" id="cancel-form">Cancelar</button
+          ><button type="submit" class="primary">Salvar carta</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="sale-dialog" aria-labelledby="sale-title">
+      <form id="sale-form">
+        <h2 id="sale-title">Carta vendida</h2>
+        <p id="sale-card-name"></p>
+        <div class="fields">
+          <label
+            >Quantidade vendida<input
+              id="sale-quantity"
+              type="number"
+              min="1"
+              step="1"
+              required /></label
+          ><label
+            >Preço por unidade (R$)<input
+              id="sale-price"
+              type="number"
+              min="0"
+              max="100000000"
+              step="0.01"
+              required
+          /></label>
+        </div>
+        <p>A confirmação desconta a quantidade do estoque e registra a venda.</p>
+        <p id="sale-error" class="form-error" role="alert"></p>
+        <div class="dialog-actions">
+          <button type="button" id="cancel-sale" class="subtle">Cancelar</button
+          ><button type="submit" class="primary">Confirmar venda</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="delete-dialog" aria-labelledby="delete-title">
+      <form id="delete-form">
+        <h2 id="delete-title">Excluir carta?</h2>
+        <p id="delete-card-name"></p>
+        <p>A exclusão será registrada no histórico. As vendas anteriores serão preservadas.</p>
+        <p id="delete-error" class="form-error" role="alert"></p>
+        <div class="dialog-actions">
+          <button type="button" id="cancel-delete" class="subtle">Cancelar</button
+          ><button type="submit" class="subtle danger">Confirmar exclusão</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="sale-action-dialog" aria-labelledby="sale-action-title">
+      <form id="sale-action-form">
+        <h2 id="sale-action-title"></h2>
+        <p id="sale-action-name"></p>
+        <p id="sale-action-description"></p>
+        <p id="sale-action-error" class="form-error" role="alert"></p>
+        <div class="dialog-actions">
+          <button type="button" id="cancel-sale-action" class="subtle">Cancelar</button
+          ><button type="submit" id="confirm-sale-action" class="primary">Confirmar</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="client-dialog" aria-labelledby="client-dialog-title">
+      <form id="client-form">
+        <h2 id="client-dialog-title">Cadastrar cliente</h2>
+        <div class="fields">
+          <label>Nome<input id="client-name" required maxlength="120" autocomplete="name" /></label
+          ><label
+            >Telefone com DDD<input
+              id="client-phone"
+              type="tel"
+              required
+              maxlength="30"
+              autocomplete="tel" /></label
+          ><label
+            >CPF<input
+              id="client-cpf"
+              inputmode="numeric"
+              required
+              maxlength="18"
+              autocomplete="off" /></label
+          ><label
+            >Comissão (%)<input
+              id="client-percent"
+              type="number"
+              required
+              min="0"
+              max="100"
+              step="0.01"
+          /></label>
+        </div>
+        <p id="client-error" class="form-error" role="alert" aria-live="assertive"></p>
+        <div class="dialog-actions">
+          <button id="cancel-client" class="subtle" type="button">Cancelar</button
+          ><button class="primary" type="submit">Salvar cliente</button>
+        </div>
+      </form>
+    </dialog>
+  </body>
+</html>
