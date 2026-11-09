@@ -14,7 +14,7 @@ O catálogo incluído (`assets/catalogo.js`) é **fictício**: 24 cartas popular
 3. Personalize:
    - **WhatsApp:** em `index.html`, troque `5500000000000` (constante `WHATSAPP_NUMBER` e links `wa.me`) pelo seu número com DDI e DDD.
    - **Repositório:** em `windows-admin/app.py` (`REPO`) e em `windows-admin/ATUALIZAR_DO_GITHUB.bat` (`BASE_URL`), troque `seu-usuario/tcg-marketplace` pelo seu repositório.
-   - **Marca e arte:** nome no cabeçalho de `index.html` e de `windows-admin/templates/admin.html`; banner em `assets/banner.webp` (e `assets/banner.jpg` para compartilhamento); ícone em `assets/icone.png`.
+   - **Marca e arte:** nome no cabeçalho de `index.html` e de `windows-admin/templates/admin.html`; banner em `assets/banner.webp` (1600 × 900 px; o arquivo de exemplo indica onde a arte aparece) e `assets/banner.jpg` para compartilhamento em redes sociais; ícone em `assets/icone.png`.
 4. Instale o painel seguindo [windows-admin/LEIA-ME.md](windows-admin/LEIA-ME.md). Na primeira instalação ele importa o catálogo de exemplo de `windows-admin/dados/catalogo-inicial.js`; apague ou edite essas cartas pelo painel.
 
 ## Segurança
