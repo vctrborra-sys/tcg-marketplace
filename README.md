@@ -1,5 +1,7 @@
 # TCG Marketplace
 
+**Demonstração:** https://vctrborra-sys.github.io/tcg-marketplace/ · **Repositório:** https://github.com/vctrborra-sys/tcg-marketplace
+
 Modelo pronto de vitrine para lojas de cartas **Magic: The Gathering** e **Pokémon TCG**, com painel administrativo local para Windows.
 
 - **Vitrine pública** (`index.html` + `assets/`): site estático para GitHub Pages, com busca por nome com sugestões (TCGdex e Scryfall), filtro por jogo, faixa de preço, ordenação, paginação, agrupamento de edições e contato pelo WhatsApp.
@@ -13,7 +15,7 @@ A vitrine está em **inglês** e os preços em **dólar (US$)**. O catálogo inc
 2. Em **Settings → Pages**, publique o branch `main` na raiz. Se tiver domínio próprio, crie um arquivo `CNAME` com ele.
 3. Personalize:
    - **WhatsApp:** em `index.html`, troque `5500000000000` (constante `WHATSAPP_NUMBER` e links `wa.me`) pelo seu número com DDI e DDD.
-   - **Repositório:** em `windows-admin/app.py` (`REPO`) e em `windows-admin/ATUALIZAR_DO_GITHUB.bat` (`BASE_URL`), troque `seu-usuario/tcg-marketplace` pelo seu repositório.
+   - **Repositório:** em `windows-admin/app.py` (`REPO`), troque `seu-usuario/tcg-marketplace` pelo seu repositório; é para lá que o painel publica o catálogo. O `windows-admin/ATUALIZAR_DO_GITHUB.bat` baixa as atualizações do código do repositório original (`BASE_URL`); troque também se você mantiver sua própria versão modificada.
    - **Marca e arte:** nome no cabeçalho de `index.html` e de `windows-admin/templates/admin.html`; banner em `assets/banner.webp` (1600 × 900 px; o arquivo de exemplo indica onde a arte aparece) e `assets/banner.jpg` para compartilhamento em redes sociais; ícone em `assets/icone.png`.
 4. Instale o painel seguindo [windows-admin/LEIA-ME.md](windows-admin/LEIA-ME.md). Na primeira instalação ele importa o catálogo de exemplo de `windows-admin/dados/catalogo-inicial.js`; apague ou edite essas cartas pelo painel.
 

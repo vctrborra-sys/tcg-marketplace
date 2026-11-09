@@ -7,7 +7,7 @@ from datetime import datetime
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
-BASE_URL = 'https://raw.githubusercontent.com/seu-usuario/tcg-marketplace/main/windows-admin/'
+BASE_URL = 'https://raw.githubusercontent.com/vctrborra-sys/tcg-marketplace/main/windows-admin/'
 FILES = (
     'app.py', 'nomes_pt.py', 'static/painel.js',
     'static/painel.css', 'templates/admin.html',
